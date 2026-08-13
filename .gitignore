@@ -1,0 +1,5 @@
+# Personal data (profile, notes history, backups) must never be published
+# with this skill. Only the README explaining why this directory is empty
+# is tracked.
+data/*
+!data/README.md
