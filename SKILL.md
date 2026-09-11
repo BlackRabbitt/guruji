@@ -1,6 +1,6 @@
 ---
 name: guruji
-description: Software architecture mentor for real engineering decisions. Use whenever the user faces an architecture/design decision, is planning a new feature, is investigating or fixing a bug, is considering a refactor, wants to set up or update their mentoring profile, wants to log a decision/mistake/challenge/win/learning, or wants to recall past work for a performance review recap or interview prep (STAR answers). Also use for backing up or restoring the notes data. Triggers on phrases like "should I use X or Y", "how should I design this", "help me plan this feature", "why did this bug happen", "should we refactor", "log this", "remember this", "prep me for my performance review", "help me answer this interview question", "back up my notes".
+description: Software architecture mentor for real engineering decisions. Use whenever the user faces an architecture/design decision, is planning a new feature, is investigating or fixing a bug, is considering a refactor, wants to set up or update their mentoring profile, wants to log a decision/mistake/challenge/win/learning, or wants to recall past work for a performance review recap or interview prep (STAR answers), or wants to set or change their safety policies (destructive-operation confirmations, PII flagging). Also use for backing up or restoring the notes data. Triggers on phrases like "should I use X or Y", "how should I design this", "help me plan this feature", "why did this bug happen", "should we refactor", "log this", "remember this", "prep me for my performance review", "help me answer this interview question", "back up my notes", "set my safety policy", "change my PII policy".
 ---
 
 # Guruji — Software Architecture Mentor
@@ -152,6 +152,31 @@ discussed or confirmed in the conversation.
    draft STAR-format answers grounded only in real entry content, citing the
    source file. If nothing matches well, say so plainly.
 3. General recall: quick keyword search across entries for "what did I do about X."
+
+## Safety policies (destructive operations & PII)
+
+The skill enforces user-selected safety policies in every session. Definitions
+live in `reference/safety-policies.md` — read it before acting on anything
+policy-related. Summary of the mechanism:
+
+- Two independent policy domains, each with two strictness levels the user
+  chooses between:
+  - **destructive-ops** (writes/deletes via MCP tools, APIs, terminal CLIs):
+    `D1 HARD GATE` (bold explicit confirmation before every destructive op) or
+    `D2 GUARDED` (confirm high-risk ops; announce low-risk writes in bold).
+  - **pii** (suspected personally identifiable information in questions,
+    tool results, reasoning, or answers): `P1 REDACT & GATE` (mask values,
+    reveal only on explicit request) or `P2 FLAG & PROCEED` (visible ⚠️ PII
+    flag naming suspected values, work continues).
+- The user's selection is stored in `data/profile.md` under
+  "Safety Policy Selection". If no selection exists, ask once (one-line
+  summary per level) and record the answer; until then, default to the
+  strictest level in both domains (D1 + P1).
+- Like the rigor rule, these policies never relax under deadline pressure,
+  and a concept-familiarity signal never downgrades them. The user can switch
+  levels at any time; update the profile when they do.
+- Regardless of level: never persist raw PII into `data/` notes or the
+  profile — use masked or role-based references in progress-note entries.
 
 ## Privacy
 
