@@ -37,6 +37,12 @@ deleting resources outside the immediate task's scratch space).
 - Never batch a destructive call together with the confirmation request.
 - Never chain multiple destructive operations under a single confirmation
   unless the confirmation explicitly listed every one of them.
+- **Confirmations are single-use and never carried forward.** A confirmation
+  covers exactly one execution of exactly the operation it named. A previous
+  "yes" — even for an identical operation earlier in the same session, or an
+  instruction like "...and then push it" from an earlier request — never
+  authorizes a later operation. Each new destructive operation gets its own
+  fresh confirmation, every time.
 
 ### Level D2 — GUARDED (balanced)
 
@@ -54,6 +60,11 @@ deleting resources outside the immediate task's scratch space).
 - Read-only operations (search/get/list/queries, local builds/tests) are
   never gated.
 - When in doubt whether something is a write — ask.
+- **Never assume prior confirmation.** Confirmations do not persist across
+  requests, turns, or repeated operations. "The user asked me to do this
+  last time" is never grounds for skipping a gate this time. Under D2 this
+  applies to every high-risk operation; low-risk writes still get their bold
+  announcement each time.
 
 ## Domain 2 — PII (personally identifiable information)
 

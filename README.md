@@ -52,6 +52,10 @@ Your choice is stored in your profile; until you choose, the strictest levels
 apply. Policies never relax under deadline pressure, and raw PII is never
 persisted into your notes.
 
+Confirmations are **single-use and never carried forward**: a "yes" covers
+exactly one execution of the operation it named. Saying "update it and push"
+once doesn't authorize any later push — the agent asks fresh, every time.
+
 ## What's in here
 
 ```

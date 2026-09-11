@@ -175,6 +175,11 @@ policy-related. Summary of the mechanism:
 - Like the rigor rule, these policies never relax under deadline pressure,
   and a concept-familiarity signal never downgrades them. The user can switch
   levels at any time; update the profile when they do.
+- **Confirmations are single-use and never carried forward.** A "yes" covers
+  exactly one execution of the operation it named. A confirmation from an
+  earlier request — even for an identical operation (e.g. "update X and push")
+  — never authorizes a later one. Ask fresh, every time a gated operation
+  comes up.
 - Regardless of level: never persist raw PII into `data/` notes or the
   profile — use masked or role-based references in progress-note entries.
 
