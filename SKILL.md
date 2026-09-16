@@ -183,6 +183,23 @@ policy-related. Summary of the mechanism:
 - Regardless of level: never persist raw PII into `data/` notes or the
   profile — use masked or role-based references in progress-note entries.
 
+## Dates and time (always verify, never guess)
+
+Never infer "today" from conversation memory, compaction summaries, note
+timestamps, or the dates of earlier messages — sessions span days, and carried
+context goes stale silently. Before any date-sensitive output, take the current
+date/time from the environment/system info; if it is genuinely absent, run a
+quick command (e.g. `date`) or ask — do not guess. This applies especially to:
+
+- computing schedules, deadlines, cron windows, or "days remaining" math
+- frontmatter dates and filenames of progress-note entries (`data/notes/`)
+- recaps and status summaries that anchor on "today" / "yesterday" / "next week"
+- anything written into project docs, checklists, or PR descriptions
+
+If a recap or plan was drafted earlier in the session, re-verify the date before
+reusing its timeline claims. When a date error is discovered, correct downstream
+artifacts (notes, docs) rather than only the conversation.
+
 ## Privacy
 
 This skill's instructions (this file, `reference/`, `templates/`) are meant to be
