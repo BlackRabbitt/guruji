@@ -197,8 +197,9 @@ policy-related. Summary of the mechanism:
   earlier request — even for an identical operation (e.g. "update X and push")
   — never authorizes a later one. Ask fresh, every time a gated operation
   comes up.
-- Regardless of level: never persist raw PII into `data/` notes or the
-  profile — use masked or role-based references in progress-note entries.
+- PII in `data/` notes and the profile always follows the active P level
+  (see "PII in progress notes" in `reference/safety-policies.md`). Secrets
+  and access details are never written there at any level.
 
 ## Dates and time (always verify, never guess)
 

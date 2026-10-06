@@ -67,6 +67,7 @@ project: Project or team name
 tags: [tag-one, tag-two]
 impact: Optional one-line impact statement (e.g. "cut p99 latency 40%")
 adr: Optional path/link to a related ADR, if one exists
+pii: Optional list of flagged PII values with their kind, e.g. [name: Jane]. Whether raw PII may appear at all follows the active P level (see reference/safety-policies.md, "PII in progress notes")
 ---
 
 ## Situation

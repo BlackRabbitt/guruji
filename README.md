@@ -54,8 +54,13 @@ Two user-selected policy domains, active in every session:
   `P2 FLAG & PROCEED` (visible ⚠️ flag, work continues).
 
 Your choice is stored in your profile; until you choose, the strictest levels
-apply. Policies never relax under deadline pressure, and raw PII is never
-persisted into your notes.
+apply. Policies never relax under deadline pressure.
+
+PII in your notes follows the same P level: masked under P1, written but
+flagged (inline ⚠️ plus a `pii:` frontmatter list) under P2. Any P level added
+later must define its note behavior, so notes pick it up automatically.
+Secrets (passwords, keys, tokens, bank or card details, access details) are
+never written into notes at any level.
 
 Confirmations are **single-use and never carried forward**: a "yes" covers
 exactly one execution of the operation it named. Saying "update it and push"

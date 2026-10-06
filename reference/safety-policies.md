@@ -83,8 +83,9 @@ data. When in doubt, treat a value as PII.
   value withheld.
 - Reveal a full value only after the user explicitly asks for that specific
   value.
-- Never write raw PII into files, notes, logs, commit messages, or documents
-  the agent produces; use masked forms.
+- Never write raw PII into files, logs, commit messages, or documents the
+  agent produces; use masked forms.
+- **In notes:** write masked forms only (see "PII in progress notes" below).
 
 ### Level P2 — FLAG & PROCEED (balanced)
 
@@ -94,16 +95,49 @@ data. When in doubt, treat a value as PII.
   work without blocking.
 - Avoid gratuitous repetition of PII values; repeat them only where needed
   for the task (e.g. an ID needed to run a lookup).
-- Before writing PII into any *persistent artifact* (files, notes, PR bodies,
-  tickets), prefer masked forms; if the raw value is genuinely needed, say so
-  explicitly in the flag.
+- Before writing PII into any *persistent artifact* other than progress
+  notes (files, PR bodies, tickets), prefer masked forms; if the raw value is
+  genuinely needed, say so explicitly in the flag.
+- **In notes:** raw values may be written, but each one must be flagged in
+  the note (see "PII in progress notes" below).
 
 ### Shared invariants (both levels)
 
-- Never persist raw PII into this skill's `data/` notes or profile —
-  progress-note entries must use masked or role-based references
-  ("the affected customer", "the ops engineer") instead of names/IDs.
+- PII in `data/` notes follows the active P level. See "PII in progress
+  notes" below.
 - The flag obligation covers ALL channels: the user's questions, tool
   results, the agent's reasoning, and final answers.
 - PII flags are informational, never accusatory — the goal is awareness of
   what is flowing through the conversation and into third-party AI systems.
+
+## PII in progress notes
+
+How PII is written into `data/` progress notes (and the profile) is not a
+separate setting: it **always follows the active P level**. Each P level
+above has an **"In notes"** rule, and that rule is the only thing the notes
+handler applies.
+
+- **Adding a P level:** every new P level MUST include an "In notes" rule.
+  Notes pick it up automatically; don't duplicate PII rules in `SKILL.md`,
+  the schema or the templates, but point to this file.
+- **Missing rule:** if the active P level has no "In notes" rule, or no P
+  level is selected, use the strictest level's note behavior (P1, masked) and
+  ask the user to define one.
+- **Masked (in notes)** means a description or placeholder: "one of 39
+  affected leads", "a pet-health customer", `<customer-A>`. Partially
+  redacted values (`pet-e770…1a1a`, `j***@gmail.com`) are not masked enough
+  for notes, because anyone with database or log access can resolve them.
+- **Flagged (in notes)** means the raw value is written with an inline ⚠️
+  marker (e.g. `Ajay ⚠️`), and the entry's frontmatter has a `pii:` field
+  listing each flagged value with its kind (e.g. `pii: [name: Ajay]`). This
+  keeps PII findable for later scrubbing (`grep -rl "^pii:" notes/`).
+
+### Secrets: never written, at any P level
+
+Secrets are not PII, and no P level covers them: passwords, API keys, tokens,
+credentials, private keys, bank account and card details, and access-related
+details (how to get into systems, access levels, security setup). They are
+never written into `data/` notes or the profile. Describe them instead ("the
+leaked staging token"), or point to where they're managed ("rotated in AWS
+Secrets Manager").
+
