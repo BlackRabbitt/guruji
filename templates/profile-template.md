@@ -23,3 +23,6 @@ updated: YYYY-MM-DD
 - Actively growing:
 
 ## Coaching Calibration Notes
+
+## Logging Mode
+- mode: (ask: L1 EXPLICIT = log only when asked; L2 AUTO = log and update notes in the background, announced)

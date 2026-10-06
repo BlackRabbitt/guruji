@@ -29,7 +29,12 @@ show you already know in the conversation.
 ### 2. Keeps a private engineering journal
 
 - Logs your decisions, mistakes, challenges, wins, and learnings as markdown
-  files under `data/notes/` — always proposed, never logged silently.
+  files under `data/notes/`.
+- Two logging modes, selected in your profile:
+  - **L1 EXPLICIT** (default) — logs only when you ask; it may suggest logging
+    in one line, but never writes without a yes.
+  - **L2 AUTO** — logs significant events in the background and keeps the
+    entries updated as the work progresses, announcing every write in bold.
 - Recall workflows:
   - **Performance review recaps** — themed summaries of real work over a time
     range, with sources cited.
@@ -92,6 +97,26 @@ using git.) Zed's agent picks it up automatically.
 
 For a different agent/tool, adapt the destination to wherever it looks for
 custom instructions/skills, keeping the directory contents as-is.
+
+### Always-on profile (Claude Code)
+
+By default the profile (including your safety policies) only loads when the
+skill is invoked. To apply it in every session and project, import it from
+your user-level `~/.claude/CLAUDE.md`, which Claude Code loads at startup:
+
+```markdown
+# Personal rules (all projects)
+
+Always apply my guruji profile, including the safety policies, tool-use rules and
+no-AI-attribution rule, even when the guruji skill isn't invoked.
+
+@~/.claude/skills/guruji/data/profile.md
+```
+
+Adjust the path to wherever the skill is installed. Claude Code may ask once
+to approve the import, because the file is outside the project. Edits to the
+profile apply from the next session onward. Note that the whole profile,
+background included, loads into every session's context.
 
 ## Important: `data/` is private
 

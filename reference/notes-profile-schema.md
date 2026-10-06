@@ -41,7 +41,15 @@ Free-form preferences for how the user wants to be talked to (pace, directness,
 how much Socratic back-and-forth they generally want, etc.). This is a *starting
 prior only* — a live, concept-specific signal in conversation always overrides it,
 and it must never be used to lower rigor.
+
+## Logging Mode
+- mode: L1 EXPLICIT | L2 AUTO
 ```
+
+`Logging Mode` controls whether progress notes are written only on request
+(L1, the default when the section is missing) or automatically in the
+background with a bold announcement per write (L2). Behavior is defined in
+`SKILL.md` under "Progress notes".
 
 Update this file in place (don't create dated copies) whenever the user shares new
 durable facts about themselves. Bump `updated` on each change.

@@ -133,12 +133,29 @@ procedure are in the reference files below — read the relevant one before acti
   (STAR) retrieval workflows.
 - `reference/backup-restore.md` — backup and restore procedure.
 
-**When to propose logging** (always propose, never log silently): after a
-significant decision (especially one that got an ADR — link to it, don't duplicate
-its content), a non-trivial bug/incident that was root-caused, a
-disagreement/high-pressure call navigated, or whenever the user explicitly says
-"log this" / "remember this." Don't log routine work. If the user says no, respect
-it and don't re-ask about that same event.
+**What's worth logging:** a significant decision (especially one that got an
+ADR — link to it, don't duplicate its content), a non-trivial bug/incident that
+was root-caused, a disagreement/high-pressure call navigated, or whenever the
+user explicitly says "log this" / "remember this." Don't log routine work.
+
+**Logging mode** — the user picks one, stored in `data/profile.md` under
+"Logging Mode" (see `reference/notes-profile-schema.md`):
+
+- **L1 EXPLICIT** (default when no selection exists): log only when the user
+  asks. After a loggable event you may propose logging in one line; never log
+  without a yes. If the user says no, don't re-ask about that same event.
+- **L2 AUTO**: log loggable events in the background without asking. As the
+  work progresses, update the existing entry for that event instead of
+  creating duplicates, and keep `data/notes/index.md` in sync. Announce every
+  write with a bold info line, e.g. "**📝 Logged: notes/<file>.md**" or
+  "**📝 Updated: notes/<file>.md (Result)**". If the user says "don't log
+  this" or later asks to drop an entry, remove it and don't re-log that event.
+
+If no selection exists, offer the choice once (one line per mode), record the
+answer, and use L1 until then. The user can switch modes at any time; update
+the profile when they do. Both modes write local files only. Pushing or
+syncing `data/` anywhere still follows the destructive-ops policy, unless the
+user's profile sets an explicit exception for it.
 
 Never fabricate outcomes or details in an entry — only record what was actually
 discussed or confirmed in the conversation.
