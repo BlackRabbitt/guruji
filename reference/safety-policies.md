@@ -66,6 +66,29 @@ deleting resources outside the immediate task's scratch space).
   applies to every high-risk operation; low-risk writes still get their bold
   announcement each time.
 
+### User-defined exceptions
+
+The profile may list exceptions to the active D level under
+"Safety Policy Selection" → `exceptions`. An excepted operation runs without
+a confirmation prompt. Each exception must name:
+
+- **tool/system**: the MCP server, CLI, or repo it applies to;
+- **operations**: which writes/deletes are covered;
+- **scope**: which targets (e.g. a specific repo/branch, all resources of
+  that tool, or only resources created in the current session);
+- **notice**: `silent`, or the bold info line to post after each operation.
+
+Rules:
+- Exceptions are read narrowly. Anything outside the named tool, operations,
+  or scope falls back to the active D level.
+- "Created in the current session" means the agent created the resource
+  earlier in this same session and can point to that creation. A resource
+  created in a previous session, or by anyone else, is out of that scope.
+- If there is any doubt about whether an operation falls inside an
+  exception's scope, treat it as gated.
+- Exceptions never cover secrets, and never relax the PII policy. PII flags
+  still apply to content written under an exception.
+
 ## Domain 2 — PII (personally identifiable information)
 
 "Suspected PII" includes, non-exhaustively: names of real people (customers,

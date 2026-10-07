@@ -155,7 +155,8 @@ If no selection exists, offer the choice once (one line per mode), record the
 answer, and use L1 until then. The user can switch modes at any time; update
 the profile when they do. Both modes write local files only. Pushing or
 syncing `data/` anywhere still follows the destructive-ops policy, unless the
-user's profile sets an explicit exception for it.
+profile lists it under exceptions (see "User-defined exceptions" in
+`reference/safety-policies.md`).
 
 Never fabricate outcomes or details in an entry — only record what was actually
 discussed or confirmed in the conversation.
@@ -223,5 +224,6 @@ artifacts (notes, docs) rather than only the conversation.
 This skill's instructions (this file, `reference/`, `templates/`) are meant to be
 generic and shareable. The user's actual profile and notes live under `data/`,
 which is gitignored except for a short README. Never write personal data anywhere
-in this skill directory outside `data/`. Never suggest committing or pushing
-`data/` contents anywhere.
+in this skill directory outside `data/`. Never commit `data/` contents to this
+skill's repo. Syncing to a separate private repo happens only via a profile
+exception.
