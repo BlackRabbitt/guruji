@@ -16,7 +16,18 @@ only the entries you'll actually use:
 - **Frontmatter scan:** list candidates by title/type first, e.g.
   `grep -H -E "^(title|type):" <files>`. Add `project`/`tags` only when
   filtering by project or theme.
+- **By signal:** `grep -l -E "^signals:.*\b(conflict|leadership)\b" notes/2*.md`.
 - **Full text:** `grep -l -i "<keyword>" notes/2*.md`.
+
+## Reading entries cheaply
+
+Read in two passes. First pass: only the Result and Why This Matters sections
+of each candidate (about a quarter of an entry), e.g.
+
+`awk 'FNR==1{print "### " FILENAME} /^## (Result|Why This Matters)/{on=1} /^## /&&!/^## (Result|Why This Matters)/{on=0} on' <files>`
+
+Second pass: read an entry in full only when you need its Situation/Task/Action
+(drafting a STAR answer, or the user asks to expand it).
 
 ## Performance Review Recap
 
@@ -26,7 +37,8 @@ project/theme scope.
 Steps:
 1. Select entries in range by filename/`updated:` (see above), and scan their
    frontmatter to filter by project/theme if given.
-2. Read the matching entry files in full.
+2. Read the matching entries' Result and Why This Matters sections (first pass
+   above). Open a full entry only if those sections aren't enough to summarize it.
 3. Synthesize a **themed** summary, not a chronological dump. Suggested themes
    (adapt to what's actually present — don't force empty categories):
    - Technical decisions & impact
@@ -48,16 +60,17 @@ achievement, technical depth, or growth from feedback (or a specific question th
 user pastes in).
 
 Steps:
-1. Map the question type to likely entry `type`/`tags`:
-   - Leadership → decisions, wins with cross-team tags
-   - Conflict → disagreement/high-pressure entries (often tagged accordingly)
+1. Map the question type to `signals`/`type`:
+   - Leadership → `signals: leadership` (also `cross-team`, `mentoring`)
+   - Conflict → `signals: conflict`
    - Failure/mistake → `type: mistake`
-   - Proudest achievement → `type: win`
-   - Technical depth → `type: decision` or `type: learning` with technical tags
-   - Growth from feedback → entries with a strong "What I'd Do Differently"
-     section
-2. Find candidates with a frontmatter scan and/or full-text grep (see above).
-3. Draft a STAR-format answer (Situation / Task / Action / Result) grounded
+   - Proudest achievement → `type: win` (prefer ones with `impact`)
+   - Technical depth → `type: decision` or `type: learning`, by topic `tags`
+   - Growth from feedback → `signals: feedback`, or a strong "What I'd Do
+     Differently" section
+2. Find candidates by signal/type, falling back to full-text grep, and rank
+   them with the first-pass read (see above).
+3. Read the best 1-2 candidates in full, then draft a STAR-format answer (Situation / Task / Action / Result) grounded
    *only* in what the entry actually says, citing the source file.
 4. If the entry's "Why This Matters" section directly answers what the interview
    question is probing for, lean on it — that's exactly what it's there for.

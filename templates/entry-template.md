@@ -5,6 +5,7 @@ type: decision | mistake | challenge | win | learning
 title: 
 project: 
 tags: []
+signals: []
 impact: 
 adr: 
 pii: 

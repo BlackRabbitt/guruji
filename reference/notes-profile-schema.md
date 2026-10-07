@@ -66,6 +66,7 @@ type: decision | mistake | challenge | win | learning
 title: Short descriptive title
 project: Project or team name
 tags: [tag-one, tag-two]
+signals: [0-2 values from the fixed list below]
 impact: Optional one-line impact statement (e.g. "cut p99 latency 40%")
 adr: Optional path/link to a related ADR, if one exists
 pii: Optional list of flagged PII values with their kind, e.g. [name: Jane]. Whether raw PII may appear at all follows the active P level (see reference/safety-policies.md, "PII in progress notes")
@@ -93,6 +94,23 @@ this demonstrate (ownership, technical depth, judgment under pressure,
 cross-team leadership, learning from failure, etc.)? Always fill this in — it's
 the field that makes the entry retrievable and usable later.
 ```
+
+`tags` are free-form topics (tech, systems, domains). `signals` are a fixed
+vocabulary of what the entry demonstrates, used by interview prep and recaps:
+
+| Signal | Use when the entry shows… |
+|---|---|
+| `leadership` | driving a direction others followed, owning a decision for a group |
+| `conflict` | a disagreement or pushback navigated |
+| `cross-team` | coordinating with or influencing another team |
+| `incident` | handling a production problem under pressure |
+| `ownership` | taking something end-to-end beyond the assigned scope |
+| `feedback` | acting on feedback, or a clear lesson changing later behavior |
+| `mentoring` | teaching, reviewing, or unblocking others |
+
+Pick at most 2, only when the entry content clearly supports them; leave empty
+otherwise. Don't invent new signals; propose additions to the user instead.
+(Failure stories are found via `type: mistake`, not a signal.)
 
 If the entry is about a decision that already has an ADR, link to it in the `adr`
 field and keep the entry itself short — don't duplicate the ADR's content, just
