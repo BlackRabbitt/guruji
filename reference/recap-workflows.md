@@ -1,8 +1,22 @@
 # Recap Workflows
 
-Both workflows read from `data/notes/` entries (see `notes-profile-schema.md` for
+All workflows read from `data/notes/` entries (see `notes-profile-schema.md` for
 format). Always cite source files so the user can verify/expand. Never fabricate
 or embellish beyond what an entry actually says.
+
+## Finding entries cheaply
+
+Don't read `index.md` or whole entries to search — narrow down first, then read
+only the entries you'll actually use:
+
+- **By date:** filenames start with the date, so a glob selects a range, e.g.
+  `notes/2026-07-*.md notes/2026-08-*.md`. Entries also carry `updated:` when
+  they were revised later; include an entry if either date falls in range
+  (`grep -l "^updated: 2026-08" notes/*.md`).
+- **Frontmatter scan:** list candidates by title/type first, e.g.
+  `grep -H -E "^(title|type):" <files>`. Add `project`/`tags` only when
+  filtering by project or theme.
+- **Full text:** `grep -l -i "<keyword>" notes/2*.md`.
 
 ## Performance Review Recap
 
@@ -10,8 +24,8 @@ Input: a time range (e.g. "last 6 months", "H1 2026"), and optionally a
 project/theme scope.
 
 Steps:
-1. Scan `data/notes/index.md` (rebuild first from entry files if it looks stale)
-   for entries in range, filtered by project/theme if given.
+1. Select entries in range by filename/`updated:` (see above), and scan their
+   frontmatter to filter by project/theme if given.
 2. Read the matching entry files in full.
 3. Synthesize a **themed** summary, not a chronological dump. Suggested themes
    (adapt to what's actually present — don't force empty categories):
@@ -42,7 +56,7 @@ Steps:
    - Technical depth → `type: decision` or `type: learning` with technical tags
    - Growth from feedback → entries with a strong "What I'd Do Differently"
      section
-2. Search `data/notes/` (via index and/or full-text) for matching entries.
+2. Find candidates with a frontmatter scan and/or full-text grep (see above).
 3. Draft a STAR-format answer (Situation / Task / Action / Result) grounded
    *only* in what the entry actually says, citing the source file.
 4. If the entry's "Why This Matters" section directly answers what the interview
@@ -56,7 +70,7 @@ Input: a keyword or topic ("what did I do about the N+1 query problem last
 year?").
 
 Steps:
-1. Grep/search entry files and the index for the keyword across title, tags,
-   project, and body.
+1. Full-text grep the entry files for the keyword, then scan the matches'
+   frontmatter.
 2. Return matching entries with a one-line summary and file path each. If
    multiple entries match, let the user pick which to expand.

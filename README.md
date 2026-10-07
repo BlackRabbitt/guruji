@@ -78,7 +78,12 @@ guruji/
 │   ├── notes-profile-schema.md
 │   ├── recap-workflows.md
 │   ├── backup-restore.md
-│   └── safety-policies.md
+│   ├── safety-policies.md       # shared rules, exceptions, PII in notes
+│   └── safety/                  # one file per level; only active ones load
+│       ├── d1-hard-gate.md
+│       ├── d2-guarded.md
+│       ├── p1-redact-gate.md
+│       └── p2-flag-proceed.md
 ├── templates/                   # fillable templates
 │   ├── entry-template.md
 │   └── profile-template.md

@@ -1,5 +1,6 @@
 ---
 date: YYYY-MM-DD
+updated: 
 type: decision | mistake | challenge | win | learning
 title: 
 project: 

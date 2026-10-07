@@ -61,6 +61,7 @@ One file per entry. Filename: `YYYY-MM-DD-short-slug.md`. Frontmatter fields:
 ```markdown
 ---
 date: YYYY-MM-DD
+updated: Optional YYYY-MM-DD, set when the entry is revised on a later day
 type: decision | mistake | challenge | win | learning
 title: Short descriptive title
 project: Project or team name
@@ -99,7 +100,15 @@ summarize the human side (why it mattered, how it landed, what was learned).
 
 ## Index — `data/notes/index.md`
 
-A single running table of contents, appended to on each new entry:
+A single running table of contents for the user to browse. The agent writes to
+it but does not read it in full during normal work (it grows with every entry):
+
+- **New entry:** append one row with a shell append (e.g. `>>`), without reading
+  the file. Keep the Tags cell to at most 4 tags.
+- **Updated entry:** only touch the row if the title, type, project or tags
+  changed; edit that one row in place.
+- **Searching:** use filenames and grep over entry frontmatter, as described in
+  `recap-workflows.md`, not the index.
 
 ```markdown
 # Notes Index
@@ -116,3 +125,5 @@ edit), rebuild it from scratch by scanning every file in `data/notes/` (excludin
 `index.md` itself), reading each file's frontmatter, and regenerating the table
 sorted by date ascending. Never trust a possibly-stale index over the actual
 entry files — the entries are the source of truth, the index is a derived cache.
+Generate it with a script (grep over frontmatter) rather than by reading entries
+into context.
